@@ -10,7 +10,6 @@ class ProfileInline(admin.TabularInline):
     model = Profile
     extra = 1
 
-
 @admin.register(About)
 class AboutAdmin(admin.ModelAdmin):
     '''
@@ -19,7 +18,6 @@ class AboutAdmin(admin.ModelAdmin):
     inlines = [
         ProfileInline,
     ]
-
 
 class SkillInline(admin.TabularInline):
     '''
