@@ -20,7 +20,7 @@ class Home(models.Model):
 class About(models.Model):
     # TODO: Define fields here}
     heading = models.CharField(max_length=50)
-    carrer = models.CharField(max_length=50)
+    carreer = models.CharField(max_length=50)
     description = models.TextField(blank=False)
     profile_img = models.ImageField(upload_to='profile/')
     updated = models.DateTimeField(auto_now=True)
