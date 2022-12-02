@@ -27,7 +27,7 @@ class About(models.Model):
     created = models.DateTimeField(auto_created=True)
 
     def __str__(self):
-        return self.carrer
+        return self.carreer
 
 
 class Profile(models.Model):
