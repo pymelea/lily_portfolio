@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from core.models import Home, About, Profile, Category, Portfolio
+from core.models import Home, About, Profile, Category, Portfolio, Education
 
 
 # Create your views here.
@@ -21,12 +21,17 @@ def index(request):
 
     # Portfolio
     portfolios = Portfolio.objects.all()
+
+    # Education
+    educations = Education.objects.all()
+
     context = {
         'home': home,
         'about': about,
         'profiles': profiles,
         'categories': categories,
         'portfolios': portfolios,
+        'educations': educations,
     }
     return render(request, 'core/index.html', context)
 
@@ -44,4 +49,15 @@ def portfolio(request):
 
 
 def contact(request):
-    return render(request, 'core/contact.html')
+    # Home
+    home = Home.objects.latest('updated')
+    # About
+    about = About.objects.latest('updated')
+    # Profile
+    profiles = Profile.objects.filter(about=about)
+    context = {
+        'home': home,
+        'profiles': profiles,
+        'about': about,
+    }
+    return render(request, 'core/contact.html', context)
