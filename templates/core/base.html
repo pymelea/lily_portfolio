@@ -42,19 +42,15 @@
 <!--===== MAIN =====-->
 <main class="l-main">
     <!--===== HOME =====-->
-    {% block section_home %}
         <section class="home" id="home">
             <div class="home__container bd-grid">
                 <h1 class="home__title"><span>{{ home.greetings_1 }}</span><br>{{ home.greetings_2 }}!</h1>
-
                 <div class="home__scroll">
                     <a href="#about" class="home__scroll-link"><i class='bx bx-up-arrow-alt'></i>Scroll down</a>
                 </div>
-
                 <img src="{{ home.picture.url }}" alt="" class="home__img">
             </div>
         </section>
-    {% endblock %}
 
 
     <!--===== ABOUT =====-->
@@ -71,6 +67,12 @@
     {% block section_portfolio %}
 
     {% endblock %}
+
+    <!--===== EDUCATION =====-->
+    {% block section_education %}
+
+    {% endblock %}
+
 
 
     <!--===== CONTACT =====-->
@@ -100,15 +102,20 @@
 
         <div class="footer__data">
             <h2 class="footer__title">FOLLOW</h2>
-            <a href="#" class="footer__social"><i class='bx bxl-facebook'></i></a>
-            <a href="#" class="footer__social"><i class='bx bxl-instagram'></i></a>
-            <a href="#" class="footer__social"><i class='bx bxl-twitter'></i></a>
+            {% for profile in profiles %}
+                {% if profile.social_name == 'LinkedIn' %}
+                    <a href="{{ profile.link }}" class="footer__social" target="_blank"><i class='bx bxl-linkedin'></i></a>
+                {% elif profile.social_name == 'Github' %}
+                    <a href="{{ profile.link }}" class="footer__social"><i class='bx bxl-github'></i></a>
+                {% elif profile.social_name == 'Twtter' %}
+                    <a href="{{ profile.link }}" class="footer__social"><i class='bx bxl-twitter'></i></a>
+                {% elif profile.social_name == 'Instagram' %}
+                    <a href="{{ profile.link }}" class="footer__social"><i class='bx bxl-instagram'></i></a>
+                {% endif %}
+            {% endfor %}
         </div>
-
-
     </div>
 </footer>
-
 
 </body>
 </html>
