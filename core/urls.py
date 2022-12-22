@@ -16,10 +16,10 @@ Including another URLconf
 from django.urls import path
 
 from . import views
-from .views import index, successView
+from .views import index, contactview
 
 urlpatterns = [
     path('', views.index, name='home'),
-    path('contact/', views.contactView, name='contact'),
-    path("success/", successView, name="success"),
+    path('contact/', views.contactview, name='contact'),
+    # path("success/", successView, name="success"),
 ]

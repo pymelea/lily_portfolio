@@ -1,6 +1,6 @@
 {% extends 'core/base.html' %}
 {% load static %}
-
+{% block title %}Home{% endblock %}
 {% block section_about %}
     <section class="about section" id="about">
         <h2 class="section-title">About</h2>
@@ -10,13 +10,12 @@
             </div>
             <div>
                 <h2 class="about__subtitle">I'm {{ about.heading }}!</h2>
-                <span class="about__profession"> {{ about.carreer }}</span>
+                <span class="about__profession">{{ about.carreer }}</span>
                 <p class="about__text">{{ about.description }}</p>
                 <div class="about__social">
                     {% for profile in profiles %}
                         {% if profile.social_name == 'LinkedIn' %}
-                            <a href="{{ profile.link }}" class="about__social-icon " target="_blank"><i
-                                    class='bx bxl-linkedin'></i></a>
+                            <a href="{{ profile.link }}" class="about__social-icon " target="_blank"><i class='bx bxl-linkedin'></i></a>
                         {% elif profile.social_name == 'Github' %}
                             <a href="{{ profile.link }}" class="about__social-icon"><i class='bx bxl-github'></i></a>
                         {% elif profile.social_name == 'Twtter' %}
@@ -37,9 +36,7 @@
             <div class="skills__box">
                 {% for category in categories %}
                     <h3 class="skills__subtitle">{{ category.name }}</h3>
-                    {% for skills in category.skill_set.all %}
-                        <span class="skills__name">{{ skills.skill_name }}</span>
-                    {% endfor %}
+                    {% for skills in category.skill_set.all %}<span class="skills__name">{{ skills.skill_name }}</span>{% endfor %}
                 {% endfor %}
             </div>
             <div class="skills__img">
@@ -65,12 +62,14 @@
 {% endblock %}
 {% block section_education %}
     <section class="education section" id="education">
-        <h2 class="section-title"> Study</h2>
+        <h2 class="section-title">Study</h2>
         <div class="education__container bd-grid">
             {% for education in educations %}
                 <div class="title__education">
                     <div class="text__education">
-                        <h3><i class='bx bx-book-reader'>     </i>      {{ education.name }} -- {{ education.lugar }} -- {{ education.first_date }} -- {{ education.date_final }}</h3>
+                        <h3>
+                            <i class='bx bx-book-reader'></i> {{ education.name }} -- {{ education.lugar }} -- {{ education.first_date }} -- {{ education.date_final }}
+                        </h3>
                     </div>
                 </div>
             {% endfor %}
@@ -82,19 +81,15 @@
         <h2 class="section-title">Contact</h2>
         <div class="contact__container bd-grid">
             <div class="contact__info">
-                <h3 class="contact__subtitle">EMAIL</h3>
-                <span class="contact__text">lilycapetillo86@gmail.com</span>
-                <h3 class="contact__subtitle">PHONE</h3>
-                <span class="contact__text">+555 499686 5265</span>
-                <h3 class="contact__subtitle">ADRESS</h3>
-                <span class="contact__text">Rua Paim Filho 393 </span>
+                <img src="{% static 'core/img/cup-of-coffee-contact.jpg' %}" alt="">
             </div>
-            <form action="" class="contact__form">
+            <form method="post" class="contact__form">
+                {% csrf_token %}
                 <div class="contact__inputs">
-                    <input type="text" placeholder="Name" class="contact__input">
-                    <input type="mail" placeholder="Email" class="contact__input">
+                    <input type="text" placeholder="Name" class="contact__input ">
+                    <input type="email" placeholder="Email" class="contact__input">
                 </div>
-                <textarea name="" id="" cols="0" rows="10" class="contact__input"></textarea>
+                <textarea name="" id="" cols="0" rows="10" class="contact__input message"></textarea>
                 <input type="submit" value="Enviar" class="contact__button">
             </form>
         </div>

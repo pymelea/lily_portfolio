@@ -25,11 +25,12 @@
         <!-- ===== MENU ===== -->
         <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
-                <li class="nav__item"><a href="{% url 'home' %}" class="nav__link active">Home</a></li>
-                <li class="nav__item"><a href="{% url 'about' %}" class="nav__link">About</a></li>
-                <li class="nav__item"><a href="{% url 'skill' %}" class="nav__link">Skills</a></li>
-                <li class="nav__item"><a href="{% url 'portfolio' %}" class="nav__link">Portfolio</a></li>
-                <li class="nav__item"><a href="{% url 'contact' %}" class="nav__link">Contact</a></li>
+                <li class="nav__item"><a href="#home" class="nav__link active">Home</a></li>
+                <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
+                <li class="nav__item"><a href="#portfolio" class="nav__link">Portfolio</a></li>
+                <li class="nav__item"><a href="#education" class="nav__link">Education</a></li>
+                <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
             </ul>
         </div>
 
@@ -116,6 +117,7 @@
         </div>
     </div>
 </footer>
-
+<script src="https://unpkg.com/scrollreveal"></script>
+<script src="{% static 'core/js/main.js' %}"></script>
 </body>
 </html>

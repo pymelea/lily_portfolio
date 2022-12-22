@@ -1,1 +1,40 @@
 {% extends 'core/base.html' %}
+{% load static %}
+{% block title %} Contact {% endblock %}
+
+
+{% block section_contact %}
+    <section class="contact section" id="contact">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact__container bd-grid">
+            <div class="contact__info">
+                <h2 class="about__subtitle">I'm {{ about.heading }}!</h2>
+                <p class="about__text">{{ about.description }}</p>
+                <div class="about__social">
+                    {% for profile in profiles %}
+                        {% if profile.social_name == 'LinkedIn' %}
+                            <a href="{{ profile.link }}" class="about__social-icon " target="_blank"><i
+                                    class='bx bxl-linkedin'></i></a>
+                        {% elif profile.social_name == 'Github' %}
+                            <a href="{{ profile.link }}" class="about__social-icon"><i class='bx bxl-github'></i></a>
+                        {% elif profile.social_name == 'Twtter' %}
+                            <a href="{{ profile.link }}" class="about__social-icon"><i class='bx bxl-twitter'></i></a>
+                        {% elif profile.social_name == 'Instagram' %}
+                            <a href="{{ profile.link }}" class="about__social-icon"><i class='bx bxl-instagram'></i></a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <form action=""  method="post" class="contact__form">
+                {% csrf_token %}
+                <div class="contact__inputs">
+                    <input type="text" placeholder="Name" class="contact__input">
+                    <input type="mail" placeholder="Email" class="contact__input">
+                </div>
+                <textarea name="" id="" cols="0" rows="10" class="contact__input"></textarea>
+                <input type="submit" value="Enviar" class="contact__button">
+            </form>
+        </div>
+    </section>
+    <br>
+{% endblock %}
