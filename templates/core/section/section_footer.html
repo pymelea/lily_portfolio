@@ -1,0 +1,34 @@
+<footer class="footer section">
+    <div class="footer__container bd-grid">
+        <div class="footer__data">
+            <h2 class="footer__title">LILY PERERA</h2>
+            <p class="footer__text">I'm Lily Perera and this is my Personal Website</p>
+        </div>
+
+        <div class="footer__data">
+            <h2 class="footer__title">EXPLORE</h2>
+            <ul>
+                <li><a href="#home" class="footer__link">Home</a></li>
+                <li><a href="#about" class="footer__link">About</a></li>
+                <li><a href="#skills" class="footer__link">Skills</a></li>
+                <li><a href="#portfolio" class="footer__link">Portfolio</a></li>
+                <li><a href="#Contact" class="footer__link">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer__data">
+            <h2 class="footer__title">FOLLOW</h2>
+            {% for profile in profiles %}
+                {% if profile.social_name == 'LinkedIn' %}
+                    <a href="{{ profile.link }}" class="footer__social" target="_blank"><i class='bx bxl-linkedin'></i></a>
+                {% elif profile.social_name == 'Github' %}
+                    <a href="{{ profile.link }}" class="footer__social"><i class='bx bxl-github'></i></a>
+                {% elif profile.social_name == 'Twtter' %}
+                    <a href="{{ profile.link }}" class="footer__social"><i class='bx bxl-twitter'></i></a>
+                {% elif profile.social_name == 'Instagram' %}
+                    <a href="{{ profile.link }}" class="footer__social"><i class='bx bxl-instagram'></i></a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</footer>
