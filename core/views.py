@@ -1,14 +1,11 @@
-from django.http import HttpResponse, BadHeaderError
+import sweetify
+from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, redirect
-from django.core.mail import send_mail
+from django.template.loader import get_template
+from django.views import View
 
-import json 
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-import smtplib
-
-from core.forms import ContactForm
 from core.models import Home, About, Profile, Category, Portfolio, Education
+from portfolio import settings
 
 
 # Create your views here.
@@ -44,65 +41,51 @@ def index(request):
     return render(request, 'core/index.html', context)
 
 
-# Corpo da mensagem do email #
-# msg = MIMEMultipart()
-# message = "Você recebeu um email da Pycodebr :)"
-#
-# # Credenciais e assunto do email #
-# password = "Whittaker*86"
-# msg['From'] = "lilycapetillo86@gmail.com"
-# msg['To'] = "lilycapetillo86@gmail.com"
-# msg['Subject'] = "Enviando gmail com Python" # Assunto do email
-#
-# # Monta conexão e envia o email #
-# msg.attach(MIMEText(message, 'plain'))
-# server = smtplib.SMTP('smtp.gmail.com', port=587)
-# server.starttls()
-# server.login(msg['From'], password)
-# server.sendmail(msg['From'], msg['To'], msg.as_string())
-# server.quit()
+class Contact(View):
+
+    def get(self, request):
+        home = Home.objects.latest('updated')
+        about = About.objects.latest('updated')
+        profiles = Profile.objects.filter(about=about)
+
+        context = {
+            'home': home,
+            'about': about,
+            'profiles': profiles,
+        }
+        return render(request, 'core/contact.html', context)
+
+    def post(self, request):
+        email = request.POST.get('email')
+        name = request.POST.get('name')
+        subject = request.POST.get('subject')
+        # print(email)
+
+        template = get_template('core/success_email.html')
+
+        # Se renderiza el template y se envias parametros
+        content = template.render({'email': email, 'name': name, 'subject': subject})
+        # Se crea el correo (titulo, mensaje, emisor, destinatario)
+        msg = EmailMultiAlternatives(
+            'Mensaje desde el Portafolio ',
+            'Este un mensaje para usted desde :',
+            email,
+            [settings.EMAIL_HOST_USER]
+        )
+        msg.attach_alternative(content, 'text/html', )
+        msg.send()
+        return redirect("/contact/")
+
+        return render(request, 'core/contact.html')
 
 
-
-# def contactView(request):
-#     if request.method == "POST":
-#         form = ContactForm()
-#     else:
-#         form = ContactForm(request.POST)
-#         if form.is_valid():
-#             msg['To'] = form.cleaned_data["subject"]
-#             msg['From'] = form.cleaned_data["from_email"]
-#             message = form.cleaned_data['message']
-#             try:
-#                 msg.attach(MIMEText(message, 'plain'))
-#                 server = smtplib.SMTP('smtp.gmail.com', port=587)
-#                 server.starttls()
-#                 server.login(msg['From'], password)
-#                 server.sendmail(msg['From'], msg['To'], msg.as_string())
-#                 server.quit()
-#                 send_mail(msg['From'], message,  msg['From'], ["lilycapetillo86@gmail.com"])
-#             except BadHeaderError:
-#                 return HttpResponse("Invalid header found.")
-#             return redirect("success")
-#     return render(request, "core/contact.html", {"form": form})
-
-# def successView(request):
-#     return HttpResponse("Success! Thank you for your message.")
-
-def contactview(request):
-    if request.method == "POST":
-        form = ContactForm()
-    else:
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            subject = form.cleaned_data["subject"] #'Asunto del correo'
-            message = form.cleaned_data['message'] #'Contenido del correo'
-            from_email = form.cleaned_data["from_email"]  #'tu@correo.com'
-            recipient_list = ['djangopruebalo@gmail.com', 'djangopruebalo@gmail.com']
-
-    return send_mail(subject, message, from_email, recipient_list)
-
-
-def successview(request):
-    contactview()
-    return render(request, 'core/contact.html', {"form": form})
+# Funcion de portafolio para mostrar los parametros necesarios
+def portfolio(request):
+    port = Portfolio.objects.all()
+    home = Home.objects.latest("updated")
+    print(home)
+    context = {
+        "portfolio": port,
+        "home": home
+    }
+    return render(request, 'core/portfolio.html', context)
