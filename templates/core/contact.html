@@ -1,5 +1,5 @@
 {% extends 'core/base.html' %}
-{% load static %}
+
 {% block title %} Contact {% endblock %}
 
 
@@ -8,12 +8,12 @@
         <h2 class="section-title">Contact</h2>
         <div class="contact__container bd-grid">
             <div class="contact__info">
-                <h2 class="about__subtitle">I'm {{ about.heading }}!</h2>
+                <h2 class="about__subtitle">I'm {{ about }}!</h2>
                 <p class="about__text">{{ about.description }}</p>
                 <div class="about__social">
                     {% for profile in profiles %}
                         {% if profile.social_name == 'LinkedIn' %}
-                            <a href="{{ profile.link }}" class="about__social-icon " target="_blank"><i
+                            <a href="{{ profile.link }}" class="about__social-icon" target="_blank"><i
                                     class='bx bxl-linkedin'></i></a>
                         {% elif profile.social_name == 'Github' %}
                             <a href="{{ profile.link }}" class="about__social-icon"><i class='bx bxl-github'></i></a>
@@ -25,16 +25,41 @@
                     {% endfor %}
                 </div>
             </div>
-            <form action=""  method="post" class="contact__form">
+
+            <form action="" method="post" class="contact__form">
                 {% csrf_token %}
+                {% load sweetify %}
+                {% sweetify %}
                 <div class="contact__inputs">
-                    <input type="text" placeholder="Name" class="contact__input">
-                    <input type="mail" placeholder="Email" class="contact__input">
+                    <input type="text" placeholder="Name" name="name" class="contact__input">
+                    <input type="email" placeholder="Email" name="email" class="contact__input">
                 </div>
-                <textarea name="" id="" cols="0" rows="10" class="contact__input"></textarea>
-                <input type="submit" value="Enviar" class="contact__button">
+                <textarea name="subject" id="" cols="0" rows="10" class="contact__input"></textarea>
+                <input type="submit" value="Enviar" class="contact__button btn-success" id="alerta">
+
             </form>
         </div>
     </section>
     <br>
 {% endblock %}
+
+<script type="text/javascript">
+    const alerta = document.querySelector('#alerta');
+    alerta.addEventListener('click', () => {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        Toast.fire({
+            icon: 'success',
+            title: 'Signed in successfully'
+        });
+    })
+</script>
