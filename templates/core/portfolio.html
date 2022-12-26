@@ -1,1 +1,17 @@
 {% extends 'core/base.html' %}
+
+{% block section_portfolio %}
+<section class="portfolio section" id="portfolio">
+        <h2 class="section-title">Portfolio</h2>
+        <div class="portfolio__container bd-grid">
+            {% for portfolio in portfolios %}
+                <div class="portfolio__img">
+                    <img src="{{ portfolio.image.url }}" alt="portafolio image">
+                    <div class="portfolio__link">
+                        <a href="{{ portfolio.link }}" class="portfolio__link-name" target="_blank">View details</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
