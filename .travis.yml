@@ -5,6 +5,4 @@ python:
 install:
   - pip install -r requirements.txt
 # command to run tests
-script: 
-  - python3 manage.py makemigrations --noinput
-  - python3 manage.py migrate --noinput
+script: make test
