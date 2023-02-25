@@ -4,6 +4,8 @@
 echo "Building the project..."
 pip install -r requirements.txt
 
+apt update
+
 # echo "Make Migration..."
 # python manage.py makemigrations --noinput
 # python manage.py migrate --noinput
