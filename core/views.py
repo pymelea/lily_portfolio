@@ -44,8 +44,10 @@ def index(request):
 class Contact(View):
 
     def get(self, request):
-        home = Home.objects.latest('updated')
-        about = About.objects.latest('updated')
+        # home = Home.objects.latest('updated')
+        home = Home.objects.all()
+        # about = About.objects.latest('updated')
+        about = About.objects.all()
         profiles = Profile.objects.filter(about=about)
 
         context = {
@@ -82,7 +84,8 @@ class Contact(View):
 # Funcion de portafolio para mostrar los parametros necesarios
 def portfolio(request):
     port = Portfolio.objects.all()
-    home = Home.objects.latest("updated")
+    # home = Home.objects.latest("updated")
+    home = Home.objects.all()
     print(home)
     context = {
         "portfolio": port,
