@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Install python 3.10
+sudo yum update -y
+
 # Build the project
 echo "Building the project..."
 pip install -r requirements.txt
