@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Install sqlite 3.8
+yum erase sqlite
 yum update -y
 yum groupinstall "Development Tools" -y
 yum erase openssl-devel -y
