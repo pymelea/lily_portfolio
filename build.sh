@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install python 3.10
-sudo yum update -y
+yum update -y
 
 # Build the project
 echo "Building the project..."
