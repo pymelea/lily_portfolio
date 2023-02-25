@@ -685,4 +685,5 @@ portfolio/core/migrations/
 portfolio/core/migrations/__pycache__
 .portfolio/core/migrations/__pycache__
 *.pyc
+*__pycache__*
 
