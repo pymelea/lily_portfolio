@@ -687,3 +687,4 @@ portfolio/core/migrations/__pycache__
 *.pyc
 *__pycache__*
 
+portfolio/__pycache__/*
