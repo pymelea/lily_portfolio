@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # Install sqlite 3.8
-yum erase sqlite
+
 yum update -y
 yum groupinstall "Development Tools" -y
 yum erase openssl-devel -y
+yum erase sqlite -y
 yum install openssl11 openssl11-devel  libffi-devel bzip2-devel wget -y
 wget https://www.sqlite.org/2023/sqlite-autoconf-3410000.tar.gz
 tar zxvf sqlite-autoconf-3410000.tar.gz
