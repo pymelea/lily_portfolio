@@ -476,7 +476,7 @@ ASALocalRun/
 *.binlog
 bin/
 lib/
-*.sqlite3
+# *.sqlite3
 
 # NVidia Nsight GPU debugger configuration file
 *.nvuser
